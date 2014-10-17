@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="juridicalPersonWin"
+            title="@init(cvm.concat('Клиент: ',cvm.currentJuridicalPerson.name))" border="normal" mode="modal" closable="true" sizable="true" maximizable="true"
+            position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.JuridicalPersonVM')"
+            onCancel="@command('cancelJuridicalPerson')  @global-command('refreshJuridicalPersons')">
+
+        <tabbox width="100%" height="100%" vflex="min" hflex="min">
+        <tabs>
+            <tab id="1" label="общая информация"/>
+            <tab id="2" label="Работа с клиентом"/>
+            <tab id="4" label="Группы"/>
+        </tabs>
+        <tabpanels>
+        <tabpanel>
+            <hbox widths="60%,40%">
+                            <listbox >
+                                <listitem>
+                                    <listcell >Название клиента</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.name)" onChanging="@command('dirty')" maxlength="250"/>
+                                    </listcell>
+                                </listitem>
+
+                                <listitem>
+                                    <listcell>Город</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.city)" onChanging="@command('dirty')" maxlength="250"/>
+                                    </listcell>
+                                </listitem>
+
+                                <listitem>
+                                    <listcell>Адрес</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.address)" onChanging="@command('dirty')" maxlength="250" />
+                                    </listcell>
+                                </listitem>
+                                <listitem>
+                                    <listcell>Регион</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.region)" maxlength="250"/>
+                                    </listcell>
+                                </listitem>
+
+                                <listitem>
+                                    <listcell>Телефоны</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.phones)" onChanging="@command('dirty')" maxlength="250"/>
+                                    </listcell>
+                                </listitem>
+
+
+                                <listitem>
+                                    <listcell>Факс</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.fax)" onChanging="@command('dirty')" maxlength="250"/>
+                                    </listcell>
+                                </listitem>
+
+
+                                <listitem>
+                                    <listcell>Сайт</listcell>
+                                    <listcell>
+                                        <textbox width="95%" value="@bind(cvm.currentJuridicalPerson.site)" onChanging="@command('dirty')" maxlength="250"/>
+                                    </listcell>
+                                </listitem>
+                            </listbox>
+                <vbox>
+                    <hbox>
+                        <button label="Добавить"  onClick="@command('createContactPerson')" />
+                        <button label="Удалить" onClick="@command('deleteСontactPerson')"/>
+                        <button label="Редактировать" onClick="@command('editContactPerson')"/>
+                    </hbox>
+                    <listbox emptyMessage="Контактных лиц нет" vflex="max" rows="4"
+                             model="@bind(cvm.contactPersons)"
+                             multiple="false"
+                             mold="paging"
+
+                             selectedItem="@bind(cvm.selectedContactPerson)">
+                        <listhead sizable="true">
+                            <listheader label="ФИО"/>
+                            <listheader label="телефон"/>
+                            <listheader label="email"/>
+                        </listhead>
+                        <template name="model" var="person">
+                            <listitem onDoubleClick="@command('editContactPerson')" >
+                                <listcell label="@load(person.fio)" />
+                                <listcell label="@load(person.phones)" />
+                                <listcell ><a href="@load(cvm.concat('mailto:',person.email))" target="_top"><label value="@load(person.email)"/> </a></listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+
+
+
+
+                </vbox>
+
+            </hbox>
+            <label value="Описание"/>
+
+            <textbox rows="3" width="95%" value="@bind(cvm.currentJuridicalPerson.note)" onChanging="@command('dirty')"
+                    />
+            <separator/>
+            <div height="200px">
+            <hbox>
+                <button label="Добавить"  onClick="@command('createNote')" />
+                <button label="Удалить" onClick="@command('deleteNote')"/>
+                <button label="Редактировать" onClick="@command('editItNote')"/>
+            </hbox>
+            <listbox model="@bind(cvm.itNotes)"   vflex="max"
+                     emptyMessage="Заметок нет"  rows="4"
+                     sizedByContent="true"
+                     selectedItem="@bind(cvm.selectedItNote)">
+                <!---->
+                <listhead sizable="true">
+                    <listheader label="Дата"/>
+                    <listheader label="Автор"/>
+                    <listheader label="Текст"/>
+                </listhead>
+                <template name="model" var="note">
+                    <listitem onDoubleClick="@command('editItNote')" >
+                        <listcell label="@load(note.date) @converter('formatedDate', format='yyyy/MM/dd')" />
+                        <listcell label="@load(note.author.fio)" />
+                        <listcell label="@load(cvm.trunc(note.text,100))" tooltiptext="@load(note.text)" ></listcell>
+                    </listitem>
+                </template>
+            </listbox>
+            </div>
+
+        </tabpanel>
+            <tabpanel>
+                <hbox>
+                    <label value="Создать:"/>
+                    <button label="Встреча" onClick="@command('createMeeting')"/>
+                    <button label="Звонок" onClick="@command('createCall')"/>
+                    <button label="Счёт" onClick="@command('createBill')"/>
+                    <button label="Удалить" onClick="@command('deleteItMeeting')"/>
+                </hbox>
+                <listbox model="@bind(cvm.itEvents)" selectedItem="@bind(cvm.selectedItEvent)" sizedByContent="true"
+                         autopaging="true" vflex="true">
+                    <listhead sizable="true">
+                        <listheader label="Владелец"/>
+                        <listheader label="Время"/>
+                        <listheader label="Тип"/>
+                        <listheader label="Текст"/>
+                        <listheader label="Напомнить"/>
+                        <listheader label="Выполнено"/>
+                        <listheader label="Деньги"/>
+                    </listhead>
+                    <template name="model" var="itEvent">
+                        <listitem onDoubleClick="@command('editItMeeting')">
+                            <listcell label="@load(itEvent.owner.fio)"/>
+                            <listcell label="@load(itEvent.eventTime)  @converter('formatedDate', format='yyyy/MM/dd HH:mm')"/>
+                            <listcell label="@load(itEvent.eventType) @converter(cvm.itEventTypeConverter)"/>
+                            <listcell label="@load(cvm.trunc(itEvent.text, 40))" tooltiptext="@load(itEvent.text)"/>
+                            <listcell> <label value="Напомнить" visible="@bind(itEvent.remind)"/></listcell>
+                            <listcell>  <label value="Выполнено" visible="@bind(itEvent.completed)"/></listcell>
+                            <listcell label="@load(itEvent.summ)"></listcell>
+                        </listitem>
+                    </template>
+                </listbox>
+            </tabpanel>
+            <tabpanel>
+                <hbox>
+                <vbox>
+                    <button label="Управление группами" onClick="@command('managePublicGroups')" disabled="@load(cvm.disableEditPublic)"/>
+                    <listbox model="@load(cvm.allPublicGroups)" selectedItems="@bind(cvm.selectedPublicGroups)"
+                            multiple="true" checkmark="true" rows="10">
+                        <listhead>
+                            <listheader label="Общие группы"/>
+                        </listhead>
+                        <template name="model" var="group">
+                            <listitem disabled="@load(cvm.disableEditPublic)">
+                                <listcell label="@load(group.name)" />
+                            </listitem>
+                        </template>
+                    </listbox>
+                </vbox>
+                 <vbox>
+                    <button label="Управление группами" onClick="@command('managePrivateGroups')" />
+                    <listbox model="@load(cvm.allPrivateGroups)" selectedItems="@bind(cvm.selectedPrivateGroups)"
+                             multiple="true" checkmark="true" rows="10">
+                        <listhead>
+                            <listheader label="Мои группы"/>
+                        </listhead>
+                        <template name="model" var="group">
+                            <listitem>
+                                <listcell label="@load(group.name)"/>
+                            </listitem>
+                        </template>
+                    </listbox>
+                 </vbox>
+                </hbox>
+            </tabpanel>
+        </tabpanels>
+        </tabbox>
+        <hbox>
+            <button image="img/save.png" onClick="@command('saveJuridicalPerson')">Сохранить</button>
+            <button image="img/cancel.png" onClick="@command('cancelJuridicalPerson')">Отмена</button>
+        </hbox>
+    </window>
+</zk>

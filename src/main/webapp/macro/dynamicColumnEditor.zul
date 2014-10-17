@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+    xmlns:h="http://www.zkoss.org/2005/zk/native"
+        >
+
+    <listbox model="@bind(self.spaceOwner.dynamicColumnList)" width="100%">
+        <template name="model" var="column">
+            <listitem>
+                <listcell label="@load(column.name)"/>
+                <listcell>
+                    <textbox value="@bind(self.spaceOwner.dynamicValueList[column].value)" if="${column.type.name=='java.lang.String'}"/>
+                    <h:div if="${column.type.name=='java.net.URL'}">
+                        <urleditor url="@bind(self.spaceOwner.parent.spaceOwner.dynamicValueList[column].value)"/>
+                    </h:div>
+                    <spinner value="@bind(self.spaceOwner.dynamicValueList[column].value)" if="${column.type.name=='java.lang.Integer'}"/>
+                    <spinner value="@bind(self.spaceOwner.dynamicValueList[column].doubleValue)" if="${column.type.name=='java.lang.Double'}"/>
+                    <h:div if="${column.type.name=='ru.dev_server.client.model.Client'}">
+                        <clienteditor client="@bind(self.spaceOwner.parent.spaceOwner.dynamicValueList[column].clientValue)"/>
+                    </h:div>
+                    <h:div if="${column.type.name=='java.util.Date'}">
+                        <datebox value="@bind(self.spaceOwner.dynamicValueList[column].dateValue)"/>
+                    </h:div>
+                    <h:div if="${column.type.name=='java.lang.Boolean'}">
+                        <checkbox  checked="@bind(self.spaceOwner.dynamicValueList[column].booleanValue)"/>
+                    </h:div>
+                </listcell>
+            </listitem>
+        </template>
+    </listbox>
+
+</zk>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="constructorWin" title="Конструктор"
+            mode="modal" closable="true" position="center,center" width="30%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.admin.ConstructorVM')"
+            onCancel="Executions.sendRedirect(&quot;/&quot;)"
+            onClose="Executions.sendRedirect(&quot;/&quot;)"
+        >
+        <radiogroup onCheck="@global-command('refreshDynamicColumnList')" model="@load(cvm.exstensions)"
+                    selectedItem="@bind(cvm.exstendedTables)">
+            <template name="model" var="ext">
+                <radio label="@load(ext) @converter(cvm.extConverter)" value="@load(ext)"/>
+            </template>
+        </radiogroup>
+        <listbox  model="@load(cvm.dynamicColumnList)"
+                 selectedItem="@bind(cvm.currentDynamicColumn)"
+                  rows="5" >
+            <listhead>
+                <listheader label="Имя"/>
+                <listheader label="Тип"/>
+                <listheader label="Отображать в списке"/>
+                <listheader label="Описание"/>
+            </listhead>
+            <template name="model" var="column">
+                <listitem>
+                    <listcell label="@load(column.name)"></listcell>
+                    <listcell label="@load(column.type.simpleName)"></listcell>
+                    <listcell label="@load(column.showInList) @converter(cvm.trueFalseConverter)" />
+                    <listcell label="@load(column.description)"></listcell>
+                </listitem>
+            </template>
+        </listbox>
+        <hbox>
+         <button mold="trendy" onClick="@command('create')"  label="Добавить"/>
+         <button mold="trendy" onClick="@command('delete') " label="Удалить"/>
+         <button mold="trendy" onClick="@command('edit')" label="Редактировать"/>
+            <space vflex="min" hflex="max"/>   <separator/>
+
+         <button mold="trendy" href="/" label="Закрыть"/>
+        </hbox>
+    </window>
+
+    </zk>

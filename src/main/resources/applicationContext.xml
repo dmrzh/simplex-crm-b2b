@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dao="http://autodao.sourceforge.net/schemas/autodao-0.12"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+                           http://autodao.sourceforge.net/schemas/autodao-0.12 http://autodao.sourceforge.net/schemas/autodao-0.12.xsd
+
+                           http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <context:component-scan base-package="ru.dev_server.client"/>
+
+    <!--<dao:hibernateScan base-package="ru.dev_server.client.dao" transaction-manager="transactionManager"/>-->
+    <dao:hibernate interface="ru.dev_server.client.dao.ClientDAO" id="clientDAO" />
+    <dao:hibernate interface="ru.dev_server.client.dao.JuridicalPersonDAO" id="juridicalPersonDAO" />
+    <dao:hibernate interface="ru.dev_server.client.dao.CategoryDAO" id="categoryDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.ContactDAO" id="contactDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.MeetingDAO" id="meetingDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.EmployeeDAO" id="employeeDAO"/>
+    <bean id="employeeDAONewTransaction" class="ru.dev_server.client.dao.EmployeeDAONewTransaction">
+    </bean>
+    <dao:hibernate interface="ru.dev_server.client.dao.CompanyDAO" id="companyDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.PasswordResetDAO" id="passwordResetDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.DynamicColumnDAO" id="dynamicColumnDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.ClientDynamicValueDAO" id="clientDynamicValueDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.MeetingDynamicValueDAO" id="meetingDynamicValueDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.PaymentDAO" id="paymentDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.SmsNotificationDAO" id="smsNotificationDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.MassSmsDAO" id="massSmsDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.SmppSettingsDAO" id="smppSettingsDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.SingleSmsDAO" id="singleSmsDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.SingleEmailDAO" id="singleEmailDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.TariffDAO" id="tariffDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.SmppStatusDAO" id="smppStatusDAO"/>
+
+
+    <dao:hibernate interface="ru.dev_server.client.dao.itevents.EventDAO" id="itEventDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.itevents.ItGroupDAO" id="itGroupDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.itevents.ReportDAO" id="reportDAO"/>
+    <dao:hibernate interface="ru.dev_server.client.dao.itevents.ItNoteDAO" id="itNoteDAO"/>
+
+
+    <bean id="juridicalOldFilterDAO" class="ru.dev_server.client.dao.JuridicalOldFilterDAO"/>
+
+
+    <bean id="exportImport" class="ru.dev_server.client.ExportImport"/>
+    <bean id="dynamicaColumnUtils" class="ru.dev_server.client.DynamicaColumnUtils"/>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <context:annotation-config/>
+
+
+    <import resource="securityContext.xml"/>
+
+
+
+    <bean name="authService" class="ru.dev_server.client.AuthService"/>
+
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${datasource.driverClassName}"/>
+        <property name="jdbcUrl" value="${datasource.url}"/>
+        <property name="user" value="${datasource.username}"/>
+        <property name="password" value="${datasource.password}"/>
+        <property name="initialPoolSize" value="20" />
+        <property name="maxIdleTime" value="10000" />
+        <property name="maxPoolSize" value="40" />
+    </bean>
+    <bean id="flyway" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="locations" value="db/migration,db/it"/>
+    </bean>
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:app.properties"/>
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean" depends-on="flyway">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="ru.dev_server.client.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.validator.apply_to_ddl">true</prop>
+
+                <!--<prop key="hibernate.cache.use_second_level_cache">false</prop>-->
+                <!--<prop key="hibernate.cache.use_query_cache">false</prop>-->
+                <!--<prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>-->
+            </props>
+        </property>
+    </bean>
+
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+
+    </bean>
+    <bean name="transactionFilter" class="ru.dev_server.client.TransactionFilter"/>
+
+    <bean id="excelUtils" class="ru.dev_server.client.ExcelUtils"/>
+
+</beans>

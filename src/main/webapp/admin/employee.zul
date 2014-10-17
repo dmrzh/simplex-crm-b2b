@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+
+
+    <window id="employeeWin" title="Сотрудник"  mode="modal" closable="true" position="center,center"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('evm') @init('ru.dev_server.client.viewmodel.admin.EmployeeVM')"
+            validationMessages="@id('vmsgs')" width="30%">
+            <label if="@bind(evm.error)" style="color:red">Неверные данные</label>
+            <listbox vflex="min" >
+                <listitem>
+                    <listcell>ФИО</listcell>
+                    <listcell><textbox value="@bind(evm.currentEmployee.fio)"/> </listcell>
+                </listitem>
+                <listitem>
+                    <listcell>email</listcell>
+                    <listcell><textbox id="emailTb" value="@load(evm.currentEmployee.email) @save(evm.currentEmployee.email, before='save') @validator(evm.emailValidator)" constraint="/.+\@.+\..+/:Неправильный email"/></listcell>
+                    <listcell><label style="color:red" value="@bind(vmsgs[emailTb])"/></listcell>
+                </listitem>
+                <listitem>
+                    <listcell>Пароль</listcell>
+                    <listcell><textbox value="@load(evm.currentEmployee.password) @save(evm.currentEmployee.password, before='save')" type="password" constraint="/\w{4,32}/:Пароль должен быть от 4 до 32 символов"/></listcell>
+                </listitem>
+                <listitem>
+                    <listcell>Роль</listcell>
+                    <listcell >
+                        <combobox selectedItem="@bind(evm.currentEmployee.role)" width="100%">
+                            <comboitem label="Администратор" value="ROLE_ADMIN"/>
+                            <comboitem label="Руководитель" value="ROLE_LEADER"/>
+                            <comboitem label="Менеджер" value="ROLE_EMPLOYEE"/>
+                        </combobox>
+                    </listcell>
+                </listitem>
+                <listitem>
+                    <listcell>Заблокирован</listcell>
+                    <listcell><checkbox checked="@bind(evm.currentEmployee.disable)"/></listcell>
+                </listitem>
+            </listbox>
+        <hbox>
+            <button onClick="@command('save') @global-command('refreshEmployeeList')">Сохранить</button>
+            <button onClick="@command('cancel')">Отмена</button>
+        </hbox>
+    </window>
+</zk>

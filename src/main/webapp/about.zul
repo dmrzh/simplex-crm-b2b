@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+    xmlns:h="http://www.zkoss.org/2005/zk/native"
+        >
+
+
+    <window  id="aboutWin" mode="modal" closable="true" position="center,center" vflex="min" hflex="min"
+             title="О программе"
+             apply="org.zkoss.bind.BindComposer"
+             viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.AboutVM')">
+        Simplex-CRM.ru  <h:br/>
+        Учёт клиентов, расписание, отчёты.<h:br/>
+        Версия: <label value="@load(vm.version)" /><h:br/>
+        Время сборки: <label value="@load(vm.buildTime)" /><h:br/>
+
+
+
+        <borderlayout vflex="min" hflex="min">
+            <south vflex="min" hflex="min">
+                <button label="OK" onClick="aboutWin.detach()"/>
+            </south>
+        </borderlayout>
+    </window>
+</zk>

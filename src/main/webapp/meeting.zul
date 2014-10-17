@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window  id="meetingWin" mode="modal" closable="true" position="center,center"   maximizable="true"
+             apply="org.zkoss.bind.BindComposer"
+             width="50%"
+             viewModel="@id('mvm') @init('ru.dev_server.client.viewmodel.MeetingViewModel')"
+             title="Встреча"
+             onCancel="@command('cancel')">
+        <listbox>
+            <listhead >
+                <listheader/>
+            </listhead>
+        <listitem>
+            <listcell>
+
+        <listbox  width="100%">
+            <listitem>
+                <listcell label="Сотрудник"></listcell>
+                <listcell>
+                    <combobox model="@load(mvm.employeeList)" selectedItem="@bind(mvm.currentMeeting.employee)" >
+                        <template name="model" var="employee">
+                        <comboitem label="@load(employee.fio)" value="@load(employee)"/>
+                        </template>
+                    </combobox>
+                </listcell>
+            </listitem>
+
+            <listitem>
+                <listcell label="Клиент"></listcell>
+                <listcell>
+                    <clienteditor id="clientEditor" client="@bind(mvm.client)"/>
+                    <button  mold="trendy" label="+Добавить нового"  onClick="@command('newClient')"/>
+                    <button  mold="trendy" label="Cписок клиентов" onClick="@command('openGroup')" disabled="@bind(mvm.currentMeeting.id eq null)"/>
+                </listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Начало"></listcell>
+                <listcell><datebox popup="false" value="@bind(mvm.currentMeeting.beginDate)"/><timebox format="HH:mm" value="@bind(mvm.beginTimeOnly)"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Конец"></listcell>
+                <listcell><datebox popup="false" value="@bind(mvm.currentMeeting.endDate)"/><timebox format="HH:mm" value="@bind(mvm.endTimeOnly)"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Заметки"></listcell>
+                <listcell><textbox rows="7" cols="40" value="@bind(mvm.currentMeeting.note)"/></listcell>
+            </listitem>
+
+            <listitem>
+                <listcell label="Напомнить клиенту за"></listcell>
+                <listcell><spinner  value="@bind(mvm.currentMeeting.rememberBeforeHours)" constraint="min 0 max 240"/>часов.
+                </listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Статус отсылки"></listcell>
+                <listcell>
+                    <textbox disabled="true"
+                             value="@bind(mvm.currentMeeting.notification.notificationStatus)  @converter(mvm.statusConverter)">
+
+                             </textbox>
+                </listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Текст смс"></listcell>
+                <listcell><textbox rows="3" value="@bind(mvm.currentMeeting.smsText)" maxlength="536"/></listcell>
+            </listitem>
+        </listbox>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+
+        <dynamicColumnEditor dynamicColumnList="@bind(mvm.dynamicColumnList)" dynamicValueList="@bind(mvm.currentMeeting.dynamicValueList)" width="100%"/>
+            </listcell>
+        </listitem>
+        <listitem>
+            <listcell>
+        <hbox>
+            <button image="img/save.png" onClick="@command('save') @global-command('refreshMeetings')">Сохранить</button>
+            <button image="img/delete.png" onClick="@command('delete') @global-command('refreshMeetings')">Удалить</button>
+            <button image="img/cancel.png" onClick="@command('cancel')">Отмена</button>
+        </hbox>
+            </listcell>
+        </listitem>
+        </listbox>
+    </window>
+</zk>

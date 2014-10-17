@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="clientsListWin" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('clvm') @init('ru.dev_server.client.viewmodel.ClientListViewModel')" vflex="1">
+
+        <hbox>
+            <button mold="trendy" onClick="@command('newClient')" image="img/add.jpg">Добавить клиента</button>
+
+            <button mold="trendy" onClick="@global-command('editClient')" image="img/edit.jpg"
+                    disabled="@load(empty clvm.selectedItems)">Редактировать клиента</button>
+            <separator spacing="100px" orient="vertical"/>
+            <label value="Фильтр"  /><image src="img/filter.jpg"/>
+            <textbox width="100px" value="@bind(clvm.clientFilter)" onOK="@command('filterClients')" />
+            <button mold="trendy" label="Искать" onClick="@command('filterClients')" image="img/search.jpg"/>
+
+             <separator spacing="100%" orient="vertical"/>
+            <button mold="trendy" onClick="@command('deleteClient')" image="img/delete.jpg" disabled="@load(empty clvm.selectedItems)">Удалить клиента</button>
+            <button mold="trendy" onClick="@command('exportExcel')" image="img/export.jpg">Выгрузить в Excel</button>
+            <button upload="true" onUpload="@command('importExcel',upEvent=event)"  image="img/import.jpg">Загрузить из Excel</button>
+        </hbox>
+        <listbox  emptyMessage="Клиентов нет" checkmark="true"  multiple="true" vflex="1"
+                  model="@load(clvm.clientList)" selectedItems="@bind(clvm.selectedItems)" mold="paging"
+                  apply="ru.dev_server.client.controllers.ClientListListbox"
+             >
+            <listhead  menupopup="auto">
+                <listheader sort="auto(fio)" label="ФИО" />
+                <listheader sort="auto(category.name)" label="Категория"/>
+                <listheader label="Контакты"/>
+                <listheader sort="auto(address)" label="Адрес"/>
+                <listheader sort="auto(note)" label="Заметка"/>
+            </listhead>
+        </listbox>
+        <separator spacing="100px" orient="horizontal"/>
+
+        <menupopup id="clientMenuCtx" apply="ru.dev_server.client.controllers.ClientContextMenuController" >
+            <menuitem label="Редактировать" id="edit"/>
+            <menuitem label="Отправить СМС" id="sms"/>
+            <menuitem label="Отправить email" id="email"/>
+
+            <menu label="Удалить" visible="false">
+                <menupopup id="del">
+                    <menuitem label="Удалить клиента" />
+                    <menuitem label="Удалить выделенных клиентов" />
+                </menupopup>
+            </menu>
+        </menupopup>
+    </window>
+</zk>

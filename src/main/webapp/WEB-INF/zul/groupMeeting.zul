@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="groupWin"  title="Добавить контакт" mode="modal" closable="true" sizable="true"
+            width="50%" position="center,center"
+        apply="org.zkoss.bind.BindComposer"
+        viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.GroupMeetingVM')"
+        validationMessages="@id('vmsgs')">
+        <hbox>
+            <hbox width="300px">
+                <vbox>
+
+                    <hbox>
+                        <label value="Фильтр"/><image src="img/filter.jpg"/>
+                        <textbox value="@bind(vm.filter)" onOK="@command('filterAllClients')"/>
+                    </hbox>
+                <listbox model="@load(vm.filteredClients)" selectedItem="@bind(vm.clientToAdd)" mold="paging">
+                    <listhead>
+                        <listheader label="Все клиенты"></listheader>
+                    </listhead>
+                    <template name="model" var="client">
+                        <listitem>
+                            <listcell label="@load(client.fio)"/>
+                        </listitem>
+                    </template>
+                </listbox>
+                </vbox>
+                <vbox align="center" pack="center" height="100%" >
+                    <separator/>
+                    <button label="-&gt;" onClick="@command('addClient')"/>
+                    <button label="&lt;-" onClick="@command('delete')"/>
+                </vbox>
+            </hbox>
+            <splitter collapse="before" mold="default" />
+     <vbox>
+         <label value="Клиенты на встрече"/>
+     <listbox model="@load(vm.currentMeeting.clientList)" selectedItem="@bind(vm.currentClient)">
+         <listhead>
+             <listheader label="ФИО" ></listheader>
+             <listheader label="Отправка СМС" ></listheader>
+             <listheader label="Заметка" ></listheader>
+         </listhead>
+
+         <template name="model" var="client">
+         <listitem>
+             <listcell label="@load(client.fio)"/>
+             <listcell>
+                 <textbox disabled="true"
+                          value="@bind(vm.currentMeeting.notifications[client].notificationStatus)  @converter(vm.statusConverter)">
+                 </textbox>
+             </listcell>
+             <listcell><textbox value="@bind(vm.currentMeeting.notifications[client].note)" maxlength="255" onChange="@command('saveNote')"/></listcell>
+         </listitem>
+         </template>
+     </listbox>
+     </vbox>
+        </hbox>
+        <hbox>
+            <button label="+ Новый клиент" onClick="@command('newClient')"/>
+            <button label="Закрыть" onClick="groupWin.detach()"/>
+        </hbox>
+</window>
+</zk>

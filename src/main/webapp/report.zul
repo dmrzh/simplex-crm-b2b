@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"        >
+    <window id="reportWin"
+            border="none" mode="embedded"  width="100%" height="100%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.ReportVM')">
+
+
+        <style>
+
+
+            .lightBee {background-color:#f2eac1}
+            .darkBee {background-color:#ede0a7 }
+            .employeeColor {background-color:#efb989}
+
+            .lightBee      .z-treerow.z-treerow-seld {background-color:#f2eac1 !important}
+            .darkBee       .z-treerow.z-treerow-seld {background-color:#f2eac1 !important}
+            .employeeColor .z-treerow .z-treerow-seld {background-color:#f2eac1 !important}
+
+        </style>
+        <!--.clientColor{background:};-->
+        <hbox>Начало периода <datebox value="@bind(vm.startDate)"/> конец периода <datebox value="@bind(vm.endDate)"/>
+            <button label="Обновить" onClick="@command('refreshReport')"/></hbox>
+        <tree model="@bind(vm.itemTree)"  vflex="1" height="100%" width="99%"  itemRenderer="ru.dev_server.client.viewmodel.report.ReportInfoRenderer"
+                >
+            <treecols>
+                <treecol label=""/>
+                <treecol label="Тип заметки"/>
+                <treecol label="Общая группа"/>
+                <treecol label="Личные группы"/>
+                <treecol label="Звонки"/>
+                <treecol label="Встречи"/>
+                <treecol label="Cчета руб."/>
+                <treecol label="Cчета euro"/>
+            </treecols>
+        </tree>
+    </window>
+</zk>

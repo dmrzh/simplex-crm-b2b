@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="fixIndexWin"  title="Индекс исправлен" mode="modal" closable="false" sizable="true"
+            width="40%" height="40%" position="center,center" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.FixIndexVM')">
+            <button href="/" label="Вернуться"/>
+    </window>
+</zk>

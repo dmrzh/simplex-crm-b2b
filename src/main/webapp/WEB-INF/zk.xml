@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+    <session-config>
+        <device-type>ajax</device-type>
+        <timeout-message>Сессия истекла. Перезагрузите страницу.</timeout-message>
+    </session-config>
+    <library-property>
+        <name>org.zkoss.theme.preferred</name>
+        <value>silvertail</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.zul.chart.engine.class</name>
+        <value> org.zkoss.zkex.zul.impl.JFreeChartEngine</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.zul.captcha.engine.class</name>
+        <value>org.zkoss.zkex.zul.impl.JHLabsCaptchaEngine</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.web.preferred.locale</name>
+        <value>ru</value>
+    </library-property>
+    <library-property>
+        <name>org.zkoss.bind.appConverters</name>
+        <value>YesNo=ru.dev_server.client.TrueFalseConverter</value>
+    </library-property>
+    <language-config>
+        <addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
+    </language-config>
+</zk>

@@ -1,0 +1,20 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="itGroupWin"  title="Группа" mode="modal" closable="true" sizable="true"
+         apply="org.zkoss.bind.BindComposer"
+         viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.italtools.GroupVM')"
+         onCancel="itGroupWin.detach()">
+
+
+        Имя: <textbox value="@bind(vm.group.name)"/>
+
+        <hbox>
+            <button image="img/save16.png" onClick="@command('save') @global-command('refreshGroups')" label="Сохранить"/>
+            <button image="img/cancel16.png" onClick="itGroupWin.detach()" label="Отмена"/>
+        </hbox>
+
+
+    </window>
+</zk>

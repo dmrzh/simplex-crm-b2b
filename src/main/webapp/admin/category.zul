@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+
+
+    <window id="employeeWin" title="Категория"  mode="modal" closable="true" position="center,center"
+            apply="org.zkoss.bind.BindComposer"
+            validationMessages="@id('vmsgs')"
+            viewModel="@id('evm') @init('ru.dev_server.client.viewmodel.admin.CategoryVM')">
+
+            <listbox vflex="min" hflex="min">
+                <listitem>
+                    <listcell>Название категории</listcell>
+                    <listcell><textbox value="@bind(evm.currentCategory.name)" constraint="no empty"/> </listcell>
+                </listitem>
+            </listbox>
+        <hbox>
+            <button mold="trendy" image="img/save16.png" onClick="@command('save') @global-command('refreshCategoryList')">Сохранить</button>
+            <button mold="trendy" image="img/cancel16.png" onClick="@command('cancel')">Отмена</button>
+        </hbox>
+    </window>
+</zk>

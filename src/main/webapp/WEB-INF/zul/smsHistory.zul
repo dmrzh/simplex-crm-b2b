@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+
+
+    <window id="smsHistoryWin"
+            apply="org.zkoss.bind.BindComposer" title="Последние 1000 смс"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.SmsHistoryVM')">
+        <vbox>
+            <listbox emptyMessage="смс пока нет" model="@load(vm.smsNotifications)" sizedByContent="true" height="100%">
+                <listhead>
+                    <listheader label="Дата" width="10%"/>
+                    <listheader label="Статус" width="10%"/>
+                    <listheader label="Текст"  width="80%"/>
+                </listhead>
+                <template name="model" var="smsNotification">
+                <listitem>
+                    <listcell label="@load(smsNotification.startDate) @converter('formatedDate', format='yyyy/MM/dd HH:mm')" />
+                    <listcell label="@load(smsNotification.notificationStatus) @converter(vm.stateConverter)"  tooltiptext="@load(smsNotification.sendError)"/>
+                    <listcell> <label value="@load(smsNotification.textTemlate)" multiline="true"/></listcell>
+                </listitem>
+                </template>
+            </listbox>
+
+        </vbox>
+    </window>
+</zk>

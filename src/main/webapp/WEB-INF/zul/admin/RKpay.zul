@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+    xmlns:h="http://www.zkoss.org/2005/zk/native"
+        >
+    <window title="Оплата" id="RKPaymentWin" mode="modal" closable="true" position="center,center" vflex="min" width="30%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.admin.RKPayVM')">
+        <h:form id="payForm" name="payForm" action="http://test.robokassa.ru/Index.aspx" method="POST"  >
+            <h:input  type="hidden" name="MrchLogin" value="dima64" />
+            <textbox  visible="false" name="InvId" value="@load(vm.payment.id)" />
+            <h:input  type="hidden" name="Desc" value="Пополнение счёта в Simplex-CRM" />
+            <textbox   visible="false" name="sEmail" value="@load(vm.email)" />
+            <h:input  type="hidden" name="sCulture" value="ru" />
+            <textbox visible="false" name="SignatureValue" id="signatureValue"/>
+            <listbox   hflex="max" vflex="min">
+                <listitem>
+                    <listcell>Сумма, руб</listcell><listcell><spinner  id="amountSp" name="OutSum" value="@bind(vm.payment.amount)" /></listcell>
+                </listitem>
+                <listitem>
+                    <listcell>Способ оплаты</listcell><listcell>
+                    <combobox name="IncCurrLabel">
+                        <comboitem label="Банковской картой" value="Банковской картой" />
+                        <comboitem label="Банковской картой через Platezh.ru" value="Банковской картой через Platezh.ru"/>
+                        <comboitem label="QIWI Кошелек" value="QIWI Кошелек"/>
+                        <comboitem label="WMR" value="WMR" id="WMR" />
+                        <comboitem label="YandexMerchantR" value="Яндекс.Деньги"/>
+                        <comboitem label="Через Связной" />
+                        <comboitem label="Через Евросеть" />
+                    </combobox>
+                    </listcell>
+                </listitem>
+                <listitem>
+                    <listcell></listcell><listcell> <button  mold="trendy" label="Оплатить" onClick="@command('pay')" /></listcell>
+                </listitem>
+           </listbox>
+        </h:form>
+    </window>
+</zk>

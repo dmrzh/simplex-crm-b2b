@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <menubar apply="ru.dev_server.client.controllers.MenuController">
+        <!--<menu label="Отчёты">-->
+            <!--<menupopup>-->
+                <!--<menu label="Общее количество">-->
+                    <!--<menupopup>-->
+                        <!--<menuitem label="По общей базе" href="#" ></menuitem>-->
+                        <!--<menuitem label="Из расписания по результатам отдельного временного периода" href="#"></menuitem>-->
+                    <!--</menupopup>-->
+                <!--</menu>-->
+                <!--<menuitem label="Количество первично принятых клиентов"  tooltiptext="из расписания по результатам отдельного временного периода" href="#"></menuitem>-->
+                <!--<menu label="Количество клиентов">-->
+                    <!--<menupopup>-->
+                        <!--<menuitem label="До одной встречей" tooltiptext="единичное посещение"/>-->
+                        <!--<menuitem label="До 3-х раз включительно" />-->
+                        <!--<menuitem label="До 10-ти раз включительно" />-->
+                        <!--<menuitem label="От 11-ти раз и более" tooltiptext="постоянные клиенты"/>-->
+                        <!--<menuitem label="Количество отказников-первичников" tooltiptext="клиентов, которые записались на прием первично, но от приема отказались (вычисляется по дате посещений и графе «черный список»)"/>-->
+                    <!--</menupopup>-->
+                <!--</menu>-->
+            <!--</menupopup>-->
+        <!--</menu>-->
+        <!--<menu label="Массовая рассылка" >-->
+            <!--<menupopup>-->
+                <!--<menuitem label="Почтовая" disabled="true"/>-->
+                <!--<menuitem id="massSms" label="SMS"/>-->
+            <!--</menupopup>-->
+        <!--</menu>-->
+
+        <menu label="Компания">
+            <menupopup>
+                <menuitem id="companySettings" label="Настройки компании" value="ROLE_ADMIN"/>
+                <menuitem id="employeeItm" label="Управление пользователями и доступом" value="ROLE_ADMIN"/>
+                <menuitem id="companyListItm" label="Список компаний" href="/admin/companyList.zul" value="ROLE_ROOT"/>
+                <menuitem id="indexFix" label="Исправление индекса" href="/fixIndex.zul"/>
+                <!--<menu label="Платежи">-->
+                    <!--<menupopup>-->
+                        <!--<menuitem id="increaseBalance" label="Пополнить счёт" value="ROLE_ADMIN" disabled="true"/>-->
+                        <!--<menuitem id="paymentHistory" label="История платежей" value="ROLE_ADMIN"/>-->
+                    <!--</menupopup>-->
+                <!--</menu>-->
+                <!--<menu  label="Конструктор">-->
+                    <!--<menupopup>-->
+                        <!--<menuitem id="categoryItm" label="Категории" value="ROLE_ADMIN"/>-->
+                        <!--<menuitem id="constructorItm" label="Добавление/удаление полей" value="ROLE_ADMIN"/>-->
+                        <!--<menuitem id="exportColumnsItm" label="Экспорт" onClick="@command('exportColumns')"></menuitem>-->
+                        <!--<menuitem id="importColumnsItm"  upload="true" label="Импорт" onUpload="@command('importColumns' , upEvent=event)"></menuitem>-->
+                    <!--</menupopup>-->
+                <!--</menu>-->
+            </menupopup>
+        </menu>
+        <menu label="Помощь">
+            <menupopup>
+                <menuitem id="docItm" label="Начало"/>
+                <menuitem id="aboutItm" label="О программе"/>
+            </menupopup>
+        </menu>
+
+        <menuitem label="выход"  href="/j_spring_security_logout"></menuitem>
+    </menubar>
+
+</zk>

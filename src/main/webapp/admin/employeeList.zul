@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="employeeListWin" title="Список сотрудников"  mode="modal" closable="true" sizable="true" position="center,center"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('evm') @init('ru.dev_server.client.viewmodel.admin.EmployeeListVM')">
+
+        <!--selectedItem="@bind(clvm.selectedItems)"-->
+        <listbox  hflex="min" model="@load(evm.employeeList)" selectedItem="@bind(evm.currentEmployee)">
+            <listhead>
+                <listheader label="ФИО"/>
+                <listheader label="email"/>
+                <listheader label="роль"/>
+                <listheader label="блокировка"/>
+            </listhead>
+            <template  name="model" var="employee">
+            <listitem onDoubleClick="@command('edit')">
+                <listcell label="@load(employee.fio)"></listcell>
+                <listcell label="@load(employee.email)"></listcell>
+                <listcell label="@load(employee.role) @converter(evm.roleConverter)"></listcell>
+                <listcell label="@load(employee.disable)  @converter(evm.trueFalseConverter)"> </listcell>
+            </listitem>
+            </template>
+        </listbox>
+        <hbox vflex="min" hflex="min">
+            <button label="Добавить" onClick="@command('create')"/>
+            <button label="Удалить" onClick="@command('delete')"/>
+            <button label="Редактировать" onClick="@command('edit')"/>
+            <separator/>
+            <button label="Закрыть" onClick="employeeListWin.detach()"/>
+        </hbox>
+
+    </window>
+    </zk>

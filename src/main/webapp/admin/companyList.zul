@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk  xmlns="http://www.zkoss.org/2005/zul"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+     xmlns:h="http://www.zkoss.org/2005/zk/native"
+     xmlns:k="http://www.w3.org/1999/xhtml">
+    <window  id="adminWin"  width="100%"
+             apply="org.zkoss.bind.BindComposer"
+             viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.CompanyListModel')">
+        <listbox  model="@load(cvm.companies)" >
+            <listhead>
+                <listheader label="компания"/>
+                <listheader label="email"/>
+                <listheader label="clients"/>
+                <listheader label="meetings"/>
+                <listheader label="referer"/>
+            </listhead>
+            <template name="model" var="company">
+            <listitem>
+                <listcell>
+                    <label value="@bind(company.name)"/>
+                </listcell>
+                <listcell label="@bind(company.employeeList[0].email)"> </listcell>
+                <listcell label="@bind(cvm.getClients(company))"></listcell>
+                <listcell label="@bind(cvm.getMeetings(company))"></listcell>
+                <listcell label="@bind(company.referer.name)"></listcell>
+            </listitem>
+            </template>
+        </listbox>
+    </window>
+</zk>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+   <window id="scheduler"
+           width="100%" height="100%"  apply="org.zkoss.bind.BindComposer"
+           viewModel="@id('evm') @init('ru.dev_server.client.viewmodel.admin.EmployeeListVM')">
+       <timer onTimer="evm.onTimer()"  delay="300000" repeats="true"/>
+    <borderlayout height="100%" width="100%">
+        <west>
+            <listbox  model="@load(evm.employeeList)" selectedItem="@bind(evm.currentEmployee)" width="100px" height="100%" >
+                <listhead>
+                    <listheader label="Сотрудники" image="img/employee16.png"/>
+                </listhead>
+                <template  name="model" var="employee">
+                    <listitem onClick="@command('setOwner')">
+                        <listcell label="@load(employee.fio)"/>
+                    </listitem>
+                </template>
+            </listbox>
+        </west>
+        <center >
+            <calendars id="cal"  height="100%" apply="ru.dev_server.client.viewmodel.CalendarController"/>
+        </center>
+
+
+    <south height="10%" >
+    <hbox id="calendarFooter"        apply="org.zkoss.bind.BindComposer"
+          viewModel="@id('svm') @init('ru.dev_server.client.viewmodel.SchedulerVM')" align="center" pack="center" width="100%" >
+        <button mold="trendy" onClick="@global-command('backCalendar')">&lt;Назад&lt;</button>
+        Отображемая неделя
+        <button mold="trendy" onClick="@global-command('forwardCalendar')">>Вперёд></button>
+        <space width="100"/>
+        <radiogroup id="scalegr" onCheck="@command('scale')" selectedItem="@bind(svm.days)"/>
+        <radio  label="Месяц" radiogroup="scalegr" value="30"/>
+        <radio label="Неделя" radiogroup="scalegr" value="7"/>
+        <radio label="День" radiogroup="scalegr" value="1"/>
+    </hbox>
+    </south>
+    </borderlayout>
+   </window>
+</zk>

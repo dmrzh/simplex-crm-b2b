@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window  id="companyWin" mode="modal" closable="true" position="center,center" width="30%"
+             title="Настройки компании"
+             apply="org.zkoss.bind.BindComposer"
+             onCancel="@command('cancel')"
+             binder="@init(queueName='meetingQueue')"
+             viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.CompanyViewModel')"
+             validationMessages="@id('vmsgs')">
+        <listbox>
+            <listitem>
+                <listcell label="Название компании"></listcell>
+                <listcell><label value="@bind(cvm.currentCompany.name)" /></listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Начало рабочего дня"></listcell>
+                <listcell>
+                    <spinner id="workBeginSp" maxlength="2"
+                             value="@load(cvm.currentCompany.startWorkingHours) @save(cvm.currentCompany.startWorkingHours, before= 'save') @validator(cvm.workingHoursValidator)"
+                             constraint="no empty,min 0 max 23"/>
+                </listcell>
+                <listcell>
+                    <label style="color:red" value="@bind(vmsgs[workBeginSp])"/>
+                </listcell>
+            </listitem>
+            <listitem>
+                <listcell label="Конец рабочего дня"></listcell>
+                <listcell>
+                    <spinner id="workEndSp"  maxlength="2"
+                             value="@load(cvm.currentCompany.finishWorkingHours) @save(cvm.currentCompany.finishWorkingHours, before= 'save')) @validator(cvm.workingHoursValidator)" constraint="no empty,min 1 max 24"/>
+                </listcell>
+                <listcell><label style="color:red" value="@bind(vmsgs[workEndSp])"/></listcell>
+            </listitem>
+        </listbox>
+        <hbox>
+            <button  mold="trendy" onClick="@command('save') @global-command('refreshWorkTime')">Сохранить</button>
+            <button  mold="trendy" onClick="@command('cancel')">Отмена</button>
+        </hbox>
+    </window>
+</zk>

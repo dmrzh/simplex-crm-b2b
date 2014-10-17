@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk  xmlns="http://www.zkoss.org/2005/zul"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+     xmlns:h="http://www.zkoss.org/2005/zk/native"
+     xmlns:k="http://www.w3.org/1999/xhtml">
+        <h:a id="link" target="_blank" href="@bind(self.spaceOwner.url)" ><label value="@bind(self.spaceOwner.url)"/></h:a>
+        <button id="changeBtn" >Изменить</button>
+        <window id="urlEditWin" sizable="true" closable="true" title="Введите ссылку"
+                mode="modal"  position="center,center" visible="false">
+            <listbox  hflex="min">
+                <listitem>
+                    <listcell>Ссылка</listcell>
+                    <listcell><textbox id="urlTextbox" value="@bind(self.spaceOwner.parent.url)"
+                            placeholder="http://имя сайта/страница"/></listcell>
+                </listitem>
+            </listbox>
+            <hbox><button id="saveBtn" label="Сохранить"/> <button id="cancelBtn" label="Отмена" /> </hbox>
+
+        </window>
+
+
+</zk>

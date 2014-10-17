@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+    xmlns:h="http://www.zkoss.org/2005/zk/native"
+        >
+    <window id="win" title="Simplex-CRM: вход" border="normal" mode="overlapped"     position="center,center" width="400px"  >
+
+
+
+        <label   style="color:red"  if="${param.login_error=='BadCredentials'}" >
+            Неверные логин или пароль.
+        </label>
+        <label   style="color:red"  if="${param.login_error=='Disabled'}" >
+           Аккаунт не активирован или заблокирован. Проверьте  почту.
+        </label>
+        <label   style="color:red"  if="${param.login_error=='NotActivated'}" >
+            Аккаунт не активирован.
+        </label>
+        <label   style="color:red"  if="${param.login_error=='Activated'}" >
+            Аккаунт активирован.
+        </label>
+        <label   style="color:red"  if="${param.login_error=='checkEmail'}" >
+            Письмо для активации аккаунта отправлено.Проверьте  почту.
+        </label>
+
+
+    <h:form id="f" name="f" action="j_spring_security_check" method="POST"  >
+        <listbox   hflex="max" vflex="min">
+
+            <listitem>
+                <listcell>Email</listcell><listcell><textbox  id="u" name="j_username" /></listcell>
+            </listitem>
+            <listitem>
+                <listcell>Пароль</listcell><listcell><textbox id="p" type="password" name="j_password" /></listcell>
+            </listitem>
+            <listitem>
+                <listcell>Запомнить меня</listcell><listcell><checkbox id="r" name="_spring_security_remember_me"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell></listcell><listcell> <h:input type="submit" value="Войти"/></listcell>
+            </listitem>
+        </listbox>
+    </h:form>
+    </window>
+</zk>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="smsSpamWin" title="Массовая рассылка СМС" mode="modal" closable="true" sizable="true"
+            width="50%" position="center,center" onCancel="smsSpamWin.detach()" maximizable="true"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.MassSmsVM')"
+            validationMessages="@id('vmsgs')">
+        <vbox>
+            <hbox>
+                <label value="название рассылки"/>
+                <textbox value="@bind(vm.currentMassSms.name)"/>
+                <label value="Дата и время начала рассылки смс"/>
+                <datebox value="@bind(vm.currentMassSms.startDate)"/>
+                <timebox value="@bind(vm.tempTime)" onChange="@command('chengeStartTime')"/>
+            </hbox>
+            <label value="Текст СМС"/>
+            <textbox rows="5" width="100%" value="@bind(vm.currentMassSms.text)" maxlength="536"
+                     constraint="no empty"/>
+            <hbox width="100%"  >
+
+                <hbox width="100px" >
+                    <vbox>
+                        <hbox>
+                            <label value="Фильтр"/>
+                            <image src="img/filter.jpg"/>
+                            <textbox value="@bind(vm.filter)" onOK="@command('refreshClients')" onChange="@command('refreshClients')" cols="9" />
+                            <combobox value="Категория" model="@load(vm.categoryList)"  selectedItem="@bind(vm.selectedCategory)" onChange="@command('refreshClients')" cols="7">
+                                <template name="model" var="category">
+                                    <comboitem label="@load(category.name)" value="@load(category)"/>
+                                </template>
+                            </combobox>
+                            <button image="img/clear16.png" onClick="@command('clearFilters')" tooltiptext="Очистить"/>
+                        </hbox>
+
+                        <listbox model="@load(vm.filteredClients)" selectedItem="@bind(vm.clientToAdd)" mold="paging">
+                            <listhead>
+                                <listheader label="Все клиенты"></listheader>
+                            </listhead>
+                            <template name="model" var="client">
+                                <listitem onDoubleClick="@command('addClient')">
+                                    <listcell label="@load(client.fio)"/>
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </vbox>
+                    <vbox align="center" pack="center" height="100%">
+                        <separator/>
+                        <button label="-&gt;&gt;" tooltiptext="Добавить всех в рассылку"
+                                onClick="@command('addAllClient')"/>
+                        <button label="-&gt;" tooltiptext="Добавить в рассылку" onClick="@command('addClient')"/>
+                        <button label="&lt;-" tooltiptext="Удалить из рассылки" onClick="@command('delete')"/>
+                        <button label="&lt;&lt;-" tooltiptext="Удалить всех из рассылки"
+                                onClick="@command('deleteAll')"/>
+                    </vbox>
+                </hbox>
+                <splitter collapse="before" mold="default"/>
+                <vbox width="100%">
+                    <label value="Клиенты в рассылке"/>
+                    <listbox model="@load(vm.currentMassSms.smsNotifications.entrySet())"
+                             selectedItem="@bind(vm.selectedSmsNotification)">
+                        <listhead>
+                            <listheader label="ФИО"></listheader>
+                            <listheader label="Отправка СМС"></listheader>
+                        </listhead>
+
+                        <template name="model" var="entry">
+                            <listitem onDoubleClick="@command('delete')">
+                                <listcell label="@load(entry.key.fio)"/>
+                                <listcell>
+                                    <textbox disabled="true"
+                                             value="@bind(entry.value.notificationStatus.name())  @converter(vm.statusConverter)">
+                                    </textbox>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </vbox>
+            </hbox>
+
+            <hbox>
+                <button label="Новый клиент" onClick="@command('newClient')" image="img/create16.png"/>
+                <button label="Сохранить" image="img/save16.png" onClick="@command('save') @global-command('refreshMassSmsList')"/>
+                <button label="Отмена" image="img/cancel16.png" onClick="smsSpamWin.detach()"/>
+            </hbox>
+        </vbox>
+    </window>
+</zk>

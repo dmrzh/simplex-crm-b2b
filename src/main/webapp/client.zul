@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="clientWin"
+            title="Контактное лицо" border="normal" mode="modal" closable="true" sizable="true" maximizable="true"
+            position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.ClientVM')"
+            onCancel="@command('cancelClient')  @global-command('refreshClients')">
+        <!--<tabbox>-->
+            <!--<tabs>-->
+                <!--<tab label="Контактное лицо" />-->
+                <!--<tab label="История встреч" onSelect="@command('openMeetingHistory')" visible="false"/>-->
+                <!--<tab label="История смс" onSelect="@command('openSmsHistory')" visible="false"/>-->
+            <!--</tabs>-->
+            <!--<tabpanels>-->
+                <!--<tabpanel>-->
+                    <listbox>
+                        <listhead>
+                            <listheader/>
+                        </listhead>
+                        <listitem>
+                        <listcell>
+                            <listbox width="100%">
+                                <listitem>
+                                    <listcell>ФИО</listcell>
+                                    <listcell>
+                                        <textbox value="@bind(cvm.currentClient.name)" width="100%"/>
+                                    </listcell>
+                                </listitem>
+                                <listitem>
+                                    <listcell>Телефоны</listcell>
+                                    <listcell>
+                                        <textbox value="@bind(cvm.currentClient.phones)"/>
+                                    </listcell>
+                                </listitem>
+
+                                <listitem>
+                                    <listcell>E-mail</listcell>
+                                    <listcell>
+                                        <textbox value="@bind(cvm.currentClient.email)" />
+                                    </listcell>
+                                </listitem>
+                                <listitem>
+                                    <listcell>Заметка</listcell>
+                                    <listcell>
+                                        <textbox value="@bind(cvm.currentClient.note)"/>
+                                    </listcell>
+                                </listitem>
+                            </listbox>
+                        </listcell>
+                        </listitem>
+                        <listitem>
+                        <listcell>
+                            <dynamicColumnEditor dynamicColumnList="@bind(cvm.dynamicColumnList)" dynamicValueList="@bind(cvm.currentClient.dynamicValueList)" width="100%"/>
+                        </listcell>
+                        </listitem>
+                </listbox>
+                <!--</tabpanel>-->
+                <!--<tabpanel id="meetingHistoryTabPanel"  />-->
+                <!--<tabpanel id="smsHistoryTabPanel"/>-->
+            <!--</tabpanels>-->
+        <!--</tabbox>-->
+        <hbox>
+            <button image="img/save.png" onClick="@command('saveClient') @global-command('refreshClients')">Сохранить</button>
+            <button image="img/cancel.png" onClick="@command('cancelClient')">Отмена</button>
+        </hbox>
+    </window>
+</zk>

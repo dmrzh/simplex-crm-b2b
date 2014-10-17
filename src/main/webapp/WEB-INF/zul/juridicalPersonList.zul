@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+
+    <style>
+        .juridicalPerson.z-listitem.z-listbox-odd{background-color:#f2eac1   }
+        .juridicalPerson.z-listitem {background-color:#ede0a7 }
+        .juridicalPerson.z-listitem-seld {background:#e2eef5  !important};
+    </style>
+    <window id="clientsListWin" apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('clvm') @init('ru.dev_server.client.viewmodel.JuridicalPersonListViewModel')" vflex="1">
+
+        <hbox>
+            <button mold="trendy" onClick="@command('newJuridicalPerson')" image="img/add.jpg">Добавить клиента</button>
+            <button mold="trendy" onClick="@global-command('editJuridicalPerson')" image="img/edit.jpg"  disabled="@load(clvm.selectedItem eq null)">Редактировать клиента</button>
+            <separator spacing="100px" orient="vertical"/>
+            <button mold="trendy" label="Фильтр" onClick="@command('openFilter')" src="img/filter.jpg"/>
+            <button mold="trendy" label="Очистить фильтр" onClick="@command('clearFilter')" src="img/noFilter.jpg"/>
+
+            <separator spacing="100%" orient="vertical"/>
+            <button mold="trendy" onClick="@command('deleteJuridicalPerson')" image="img/delete.jpg" disabled="@load(clvm.selectedItem eq null)" visible="@load(clvm.adminRole)">Удалить клиента</button>
+        </hbox>
+        <listbox  emptyMessage="Клиентов нет" vflex="1"
+                  model="@load(clvm.clientList)" selectedItem="@bind(clvm.selectedItem)" mold="paging" checkmark="@load(clvm.adminRole)"
+                  apply="ru.dev_server.client.controllers.JuridicalPersonListListbox"
+                >
+            <listhead  menupopup="auto" sizable="true">
+                <listheader label="Название" />
+                <listheader label="Дата создания" />
+                <listheader label="Город"/>
+                <listheader label="Общие группы"/>
+                <listheader label="личные группы"/>
+                <listheader label="Регион"/>
+                <listheader label="Сайт"/>
+                <listheader label="Описание"/>
+            </listhead>
+        </listbox>
+        <separator spacing="100px" orient="horizontal"/>
+
+        <menupopup id="juridicalPersonMenuCtx" apply="ru.dev_server.client.controllers.JuridicalPersonContextMenuController" >
+            <menuitem label="Редактировать" id="edit"/>
+            <menuitem label="Отправить СМС" id="sms"/>
+            <menuitem label="Отправить email" id="email"/>
+
+            <menu label="Удалить" visible="false">
+                <menupopup id="del">
+                    <menuitem label="Удалить клиента" />
+                    <menuitem label="Удалить выделенных клиентов" />
+                </menupopup>
+            </menu>
+        </menupopup>
+    </window>
+</zk>

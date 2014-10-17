@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+     <hbox>
+    <bandbox id="bd" value="@bind(self.spaceOwner.client) @converter(self.spaceOwner.fioConverter)"
+             mold="rounded"
+             readonly="true" placeholder="Найдите клиента в поиске" onOpen="searchTb.focus()">
+        <bandpopup mold="default">
+            <vbox>
+                <hbox>
+                    Найти<image src="img/filter.jpg" width="20px"/>
+                    <textbox id="searchTb" value="@bind(self.spaceOwner.filter)" />
+                </hbox>
+                <listbox id="lb" width="200px" mold="paging" model="@load(self.spaceOwner.clientListModel)">
+                    <template name="model" var="client">
+                        <listitem>
+                            <listcell label="@load(client.fio) " />
+                        </listitem>
+                    </template>
+                </listbox>
+            </vbox>
+        </bandpopup>
+    </bandbox>
+    <button  id="openClient" mold="trendy" image="img/client16.png" disabled="false"/>
+     </hbox>
+
+</zk>

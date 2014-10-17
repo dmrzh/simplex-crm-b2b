@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+    <window id="paymentHistoryWin"
+            title="История платежей" border="normal" mode="modal" closable="true"
+            position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.admin.PaymentHistoryVM')"
+            onCancel="paymentHistoryWin.detach()">
+                <listbox width="100%" model="@load(vm.allPayments)" emptyMessage="Платежй небыло"
+                         sizedByContent="true" >
+                    <listhead sizable="true">
+                        <listheader label="Дата" maxlength="16"/>
+                        <listheader label="Идентификатор"   maxlength="36"/>
+                        <listheader label="Сумма" maxlength="10"/>
+                        <listheader label="Результат" />
+                        <listheader label="Заметки" />
+                    </listhead>
+                    <template name="model" var="payment">
+                    <listitem>
+                        <listcell label="@load(payment.startDate) @converter('formatedDate', format='yyyy-MM-dd hh:mm')"/>
+                        <listcell label="@load(payment.id)" />
+                        <listcell label="@load(payment.amount)"/>
+                        <listcell label="@load(payment.paymentState) @converter(vm.paymentStateConverter)"/>
+                        <listcell label="@load(payment.note)"/>
+                    </listitem>
+                    </template>
+                </listbox>
+        <hbox >
+            <button onClick="paymentHistoryWin.detach()">Закрыть</button>
+        </hbox>
+    </window>
+</zk>

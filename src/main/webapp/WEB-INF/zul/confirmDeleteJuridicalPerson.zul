@@ -1,0 +1,21 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="itDeleteWin"  title="Удалить Клиента?" mode="modal" closable="true" sizable="true"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.DeleteJuridicalPersonDialog')"
+            onCancel="itDeleteWin.detach()">
+
+
+        Введите код: <label value="@load(vm.checkCode)"/>
+        <textbox value="@bind(vm.checkAnswer)"/>
+
+        <hbox>
+            <button image="img/delete16.png" onClick="@command('delete')" label="Удалить"/>
+            <button image="img/cancel16.png" onClick="itDeleteWin.detach()" label="Отмена"/>
+        </hbox>
+
+
+    </window>
+</zk>

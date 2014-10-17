@@ -1,0 +1,40 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="itNoteWin"  title="Заметка" mode="modal" closable="true" sizable="true"
+            width="40%" position="center,center"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.italtools.ItNoteVM')"
+            onCancel="itNoteWin.detach()" onOK="@command('save') @global-command('refreshItNotes')" >
+
+
+        <listbox>
+            <listhead>
+                <listheader/>
+                <listheader/>
+            </listhead>
+            <listitem>
+                <listcell label="Дата"/>
+                <listcell label="@load(vm.itNote.date)  @converter('formatedDate', format='yyyy/MM/dd')"/>
+            </listitem>
+
+
+            <listitem>
+                <listcell label="Автор"/>
+                <listcell label="@load(vm.itNote.author.fio)"/>
+            </listitem>
+
+            <listitem>
+                <listcell label="Текст"/>
+                <listcell><textbox rows="7" value="@bind(vm.itNote.text)" maxlength="1024"/></listcell>
+            </listitem>
+        </listbox>
+
+        <hbox>
+            <button image="img/save16.png" onClick="@command('save') @global-command('refreshItNotes')" label="Сохранить"/>
+            <button image="img/cancel16.png" onClick="itNoteWin.detach()" label="Отмена"/>
+        </hbox>
+
+    </window>
+</zk>

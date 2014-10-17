@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+    <window id="reportListWin"
+            title="Список отчётов" border="normal" mode="modal" closable="true"
+            position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.admin.')"
+            onCancel="reportListWin.detach()">
+        <listbox width="100%" model="@load(vm.allReports)" emptyMessage="Платежй небыло"
+                 sizedByContent="true" >
+            <listhead sizable="true">
+                <listheader label="Дата" maxlength="16"/>
+                <listheader label="Идентификатор"   maxlength="36"/>
+                <listheader label="Сумма" maxlength="10"/>
+                <listheader label="Подтверждено" />
+            </listhead>
+            <template name="model" var="payment">
+                <listitem>
+                    <listcell label="@load(payment.startDate) @converter('formatedDate', format='yyyy-MM-dd hh:mm')"/>
+                    <listcell label="@load(payment.uuid)" />
+                    <listcell label="@load(payment.amount)"/>
+                    <listcell label="@load(payment.payed) @converter(vm.trueFalseConverter)"/>
+                </listitem>
+            </template>
+        </listbox>
+        <hbox >
+            <button onClick="reportListWin.detach()">Закрыть</button>
+        </hbox>
+    </window>
+</zk>

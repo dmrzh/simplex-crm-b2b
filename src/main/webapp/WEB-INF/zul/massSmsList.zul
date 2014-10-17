@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window sizable="true"
+            width="100%" height="100%" position="center,center" onCancel="smsSpamListWin.parent.linkedTab.close()"
+            apply="org.zkoss.bind.BindComposer" border="0"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.MassSmsListVM')"
+            validationMessages="@id('vmsgs')">
+        <borderlayout>
+            <center>
+                <div width="100%" height="100%" align="justify" style="overflow:auto">
+                    <listbox model="@load(vm.massSmsList)" selectedItem="@bind(vm.selectedMassSms)">
+                        <listhead>
+                            <listheader label="Название"/>
+                            <listheader label="Активна"/>
+                            <listheader label="Старт"/>
+                            <listheader label="Клиентов"/>
+                            <listheader label="В ожидании"/>
+                            <listheader label="Ошибок"/>
+                        </listhead>
+                        <template name="model" var="massSms">
+                            <listitem onDoubleClick="@command('edit')" context="massSmsCtx">
+                                <listcell label="@load(massSms[0].name)"/>
+                                <listcell>
+                                        <image if="${massSms[0].active}" src="img/run.png" tooltiptext="Активна"/>
+                                        <image if="${!massSms[0].active}" src="img/pause.png" tooltiptext="На паузе"/>
+                                </listcell>
+                                <listcell label="@load(massSms[0].startDate)"/>
+                                <listcell label="@load(massSms[1])"/>
+                                <listcell label="@load(massSms[2])"/>
+                                <listcell label="@load(massSms[3])"/>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </div>
+            </center>
+            <south>
+                <hbox height="50px">
+                    <button  mold="trendy" label="Создать" image="img/create.png" onClick="@command('create')"/>
+                    <button  mold="trendy" label="Редактировать" image="img/edit.png" onClick="@command('edit') @global-command('refreshMassSmsList')"/>
+
+                    <button  mold="trendy" label="Удалить" image="img/delete.png" onClick="@command('delete') @global-command('refreshMassSmsList')"/>
+                    <!--<button  mold="trendy" label="Закрыть" image="img/window_close.png" onClick="self.spaceOwner.parent.linkedTab.close()"/>-->
+                </hbox>
+            </south>
+        </borderlayout>
+
+        <menupopup id="massSmsCtx"  >
+            <menuitem label="Редактировать" image="img/edit.png" onClick="@command('edit') @global-command('refreshMassSmsList')" />
+            <menuitem label="Запустить" onClick="@command('start')"/>
+            <menuitem label="Остановить" onClick="@command('stop')"/>
+        </menupopup>
+    </window>
+</zk>

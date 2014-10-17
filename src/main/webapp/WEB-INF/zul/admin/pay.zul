@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+    xmlns:h="http://www.zkoss.org/2005/zk/native"
+        >
+    <window title="Оплата" id="aboutWin" mode="modal" closable="true" position="center,center" vflex="min" width="30%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.admin.PayVM')">
+        <h:form id="payForm" name="payForm" action="https://demo.moneta.ru/assistant.htm " method="POST"  >
+            <h:input  type="hidden" name="MNT_ID" value="24030317" />
+            <h:input  type="hidden" name="MNT_TRANSACTION_ID" value="@load(vm.payment.uuid)" />
+            <h:input  type="hidden" name="MNT_CURRENCY_CODE" value="RUB" />
+            <listbox   hflex="max" vflex="min">
+                <listitem>
+                    <listcell>Сумма, руб</listcell><listcell><spinner  id="amountSp" name="MNT_AMOUNT" value="@bind(vm.payment.amount)" /></listcell>
+                </listitem>
+                <listitem>
+                    <listcell></listcell><listcell> <button label="Оплатить" onClick="@command('pay')" /></listcell>
+                </listitem>
+           </listbox>
+        </h:form>
+    </window>
+</zk>

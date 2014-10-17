@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="reg" title="Регистрация нового пользователя/компании"
+            border="normal" mode="modal" closable="false" position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('rvm') @init('ru.dev_server.client.viewmodel.RegisterViewModel')"
+            validationMessages="@id('vmsgs')"
+            onOK="@command('register')">
+
+        <script type="text/javascript" src="yandexMetrika.js">
+            <!-- Yandex.Metrika counter -->
+        </script>
+
+        поля помеченные звёздочкой - обязательные
+        <label if="@bind(rvm.error)" style="color:red">Неверные данные</label>
+        <listbox>
+            <listitem>
+                <listcell>компания<label value="*" style="color:red"/></listcell>
+                <listcell>
+                    <textbox id="companyTb" value="@save(rvm.company.name, before='register') @validator(rvm.companyNameValidator)"/>
+                </listcell>
+                <listcell><label style="color:red" value="@bind(vmsgs[companyTb])"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell>ФИО</listcell><listcell><textbox value="@save(rvm.employee.fio)"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell>email<label value="*" style="color:red"></label></listcell>
+                <listcell>
+                    <textbox id="emailTb" value="@save(rvm.employee.email, before='register')  @validator(rvm.emailValidator)" />
+                </listcell>
+                <listcell><label style="color:red" value="@bind(vmsgs[emailTb])"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell>пароль<label value="*" style="color:red"></label></listcell>
+                <listcell>
+                    <textbox id="pwTb" type="password" value="@save(rvm.employee.password) @validator(rvm.passwordValidator)"  />
+                </listcell>
+                <listcell><label style="color:red" value="@bind(vmsgs[pwTb])"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell>повтор пароля <label value="*" style="color:red"></label></listcell>
+                <listcell>
+                    <textbox id="repPwTb" type="password" value="@save(rvm.repeatPassword, before='register') @validator(rvm.repeatPasswordValidator)"/>
+                </listcell>
+                <listcell><label style="color:red" value="@bind(vmsgs[repPwTb])"/></listcell>
+            </listitem>
+
+            <listitem>
+                <listcell><bw.captcha id="cpa" length="5" width="200px" height="50px"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell>введите буквы с картинки<label value="*" style="color:red"></label></listcell>
+                <listcell><textbox value="@save(rvm.captcha)"/></listcell>
+            </listitem>
+
+            <listitem>
+                 <listcell>Кто рекомендовал(email)</listcell>
+                <listcell><textbox id="refererTb" value="@load(rvm.referer) @save(rvm.referer, before='register') @validator(rvm.refererValidator)"/></listcell>
+                <listcell><label style="color:red" value="@bind(vmsgs[refererTb])"/></listcell>
+            </listitem>
+        </listbox>
+        <button onClick="@command('register')" >Зарегистрироваться</button>
+        <button href="=/login.zul">Отмена</button>
+    </window>
+</zk>

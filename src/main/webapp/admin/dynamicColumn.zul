@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="dynamicColumnWin" title="Редактор поля"  mode="modal" closable="true" position="center,center"
+        apply="org.zkoss.bind.BindComposer" width="30%"
+        viewModel="@id('dcvm') @init('ru.dev_server.client.viewmodel.admin.DynamicColumnVM')"
+        onCancel="dynamicColumnWin.detach()">
+
+        <listbox vflex="max" hflex="max">
+            <listitem>
+                <listcell>Имя</listcell>
+                <listcell><textbox value="@bind(dcvm.dynamicColumn.name)"/> </listcell>
+            </listitem>
+            <listitem>
+                <listcell>Описание</listcell>
+                <listcell><textbox rows="3" value="@bind(dcvm.dynamicColumn.description)"/> </listcell>
+            </listitem>
+            <listitem>
+                <listcell>Тип</listcell>
+                <listcell >
+                    <combobox model="@load(dcvm.columnTypes)" selectedItem="@bind(dcvm.dynamicColumn.type)">
+                        <template name="model" var="type">
+                            <comboitem label="@load(type.simpleName)" value="@load(type)"/>
+                        </template>
+                    </combobox>
+                </listcell>
+            </listitem>
+            <listitem>
+                <listcell>Показывать в списке</listcell>
+                <listcell><checkbox checked="@bind(dcvm.dynamicColumn.showInList)"/> </listcell>
+            </listitem>
+
+        </listbox>
+        <hbox>
+            <button onClick="@command('save') @global-command('refreshDynamicColumnList')">Сохранить</button>
+            <button onClick="dynamicColumnWin.detach()">Отмена</button>
+        </hbox>
+    </window>
+
+</zk>

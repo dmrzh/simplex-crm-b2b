@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+
+
+    <window  id="meetingHistoryWin"
+             apply="org.zkoss.bind.BindComposer"
+             viewModel="@id('mhvm') @init('ru.dev_server.client.viewmodel.MeetingHistoryViewModel')">
+
+        <listbox emptyMessage="Истории пока нет" model="@load(mhvm.meetingList)" sizedByContent="true" height="100%">
+            <listhead>
+                <listheader label="дата"/>
+                <listheader label="Заметки"/>
+            </listhead>
+            <template name="model" var="meeting">
+                <listitem>
+                    <listcell label="@load(meeting.beginDate) @converter('formatedDate', format='yyyy/MM/dd HH:mm')"></listcell>
+                    <listcell > <label multiline="true" value="@load(meeting.note)"/></listcell>
+                </listitem>
+            </template>
+        </listbox>
+    </window>
+</zk>

@@ -1,0 +1,27 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="itManageGroupWin" title="Управление группами" mode="modal" closable="true" sizable="true"
+            apply="org.zkoss.bind.BindComposer" width="30%"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.italtools.ManageGroupsVM')"
+            onCancel="itManageGroupWin.detach()">
+
+        <hbox width="100%" >
+            <button label="Новая группа" onClick="@command('addGroup')"/>
+            <button label="Редактировать группу" onClick="@command('editGroup')"/>
+            <button label="Удалить группу" onClick="@command('deleteGroup')"/>
+        </hbox>
+        <listbox model="@bind(vm.groups)" selectedItem="@bind(vm.selectedGroup)" rows="10">
+            <listhead>
+                <listheader label="Имя группы"/>
+            </listhead>
+            <template name="model" var="group">
+                <listitem label="@load(group.name)"/>
+            </template>
+        </listbox>
+        <hbox>
+            <button image="img/cancel.png" onClick="itManageGroupWin.detach()" label="Закрыть"/>
+        </hbox>
+    </window>
+</zk>

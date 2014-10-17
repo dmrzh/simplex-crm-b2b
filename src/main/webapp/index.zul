@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <style dynamic="true">
+        @font-face {
+            font-family: days;
+            src: url(fonts/Days.otf);
+        }
+        .header {
+         font-size:30px;
+         font-family: days;
+         font-color:#2b2a28;
+        }
+    </style>
+
+
+  <include src="menu.zul"/>
+    <window id="indexWin"
+            title="Simplex-CRM" border="normal" vflex="2">
+        <tabbox width="100%" height="100%" apply="ru.dev_server.client.controllers.TabsController">
+            <tabs>
+                <tab id="scheduleTab" label="Расписание" image="img/calendar16.png"/>
+                <!--<tab id="clientsTab" label="Клиенты(Физ. Лица)" image="img/2clients16.png"/>-->
+                <tab id="JuridicalPersonsTab" label="Клиенты(Юр. Лица)" image="img/2clients16.png"/>
+                <!--<tab label="Массовые рассылки" image="img/sms.png"/>-->
+                <tab id="reportTab"  label="Отчёты"  image="img/report16.png" forward="mychart.onRefresh"/>
+            </tabs>
+            <tabpanels>
+                <tabpanel height="700px">
+                    <include src="WEB-INF/zul/scheduler.zul"/>
+                </tabpanel>
+                <!--<tabpanel>-->
+                   <!--<include src="clientsList.zul"/>-->
+                <!--</tabpanel>-->
+                <tabpanel>
+                    <include src="/WEB-INF/zul/juridicalPersonList.zul"/>
+                </tabpanel>
+
+                <!--<tabpanel>-->
+                    <!--<include src="/WEB-INF/zul/massSmsList.zul"/>-->
+                <!--</tabpanel>-->
+                <tabpanel id="chartPanel" height="700px" >
+                    <include src="report.zul"/>
+
+                </tabpanel>
+
+            </tabpanels>
+        </tabbox>
+        </window>
+</zk>

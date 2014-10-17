@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="newSingleEmailWin"
+            title="Отправить почту" border="normal" mode="modal" closable="true" sizable="true" maximizable="true"
+            position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.SingleEmailVM')"
+            onCancel="newSingleEmailWin.detach()">
+
+        <vbox width="100%">
+
+            <textbox value="@bind(cvm.subject)" width="100%" cols="100" maxlength="256"/>
+            <textbox rows="7" value="@bind(cvm.text)" width="100%" cols="100" maxlength="2048"/>
+            <hbox>
+                <button image="img/send16.png" label="Отослать" onClick="@command('send')"/>
+                <button image="img/cancel16.png" onClick="newSingleEmailWin.detach()">Отмена</button>
+            </hbox>
+        </vbox>
+    </window>
+</zk>

@@ -1,0 +1,1 @@
+UPDATE smsnotification SET notificationstatus='RECEIVED' WHERE notificationstatus='RECIEVED'

@@ -1,0 +1,19 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="callWin" mode="embedded" border="none"  title="Звонок">
+        <!--apply="org.zkoss.bind.BindComposer"-->
+        <!--viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.GroupMeetingVM')"-->
+        <!--validationMessages="@id('vmsgs')"-->
+        <listbox>
+            <listhead/>
+            <listitem>
+                <listcell/>
+                <listcell/>
+            </listitem>
+        </listbox>
+
+
+    </window>
+</zk>

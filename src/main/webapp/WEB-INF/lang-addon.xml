@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<language-addon>
+    <addon-name>myaddon</addon-name>
+    <language-name>xul/html</language-name>
+    <!--http://books.zkoss.org/wiki/ZK%20Developer%27s%20Reference/MVVM/Advance/Binding%20Annotation%20for%20a%20Custom%20Component-->
+    <component>
+        <component-name>clienteditor</component-name>
+        <component-class>ru.dev_server.client.compoment.ClientEditor</component-class>
+        <annotation>
+            <annotation-name>ZKBIND</annotation-name>
+            <property-name>client</property-name>
+            <attribute>
+                <attribute-name>ACCESS</attribute-name>
+                <attribute-value>both</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>SAVE_EVENT</attribute-name>
+                <attribute-value>onEdited</attribute-value>
+            </attribute>
+        </annotation>
+    </component>
+
+
+    <component>
+        <component-name>urleditor</component-name>
+        <component-class>ru.dev_server.client.compoment.UrlEditor</component-class>
+        <annotation>
+            <annotation-name>ZKBIND</annotation-name>
+            <property-name>url</property-name>
+            <attribute>
+                <attribute-name>ACCESS</attribute-name>
+                <attribute-value>both</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>SAVE_EVENT</attribute-name>
+                <attribute-value>onEdited</attribute-value>
+            </attribute>
+        </annotation>
+    </component>
+
+    <component>
+        <component-name>dynamicColumnEditor</component-name>
+        <component-class>ru.dev_server.client.compoment.DynamicColumnEditor</component-class>
+        <annotation>
+            <annotation-name>ZKBIND</annotation-name>
+            <property-name>dynamicColumnList</property-name>
+            <attribute>
+                <attribute-name>ACCESS</attribute-name>
+                <attribute-value>both</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>SAVE_EVENT</attribute-name>
+                <attribute-value>onEdited</attribute-value>
+            </attribute>
+        </annotation>
+        <annotation>
+            <annotation-name>ZKBIND</annotation-name>
+            <property-name>dynamicValueList</property-name>
+            <attribute>
+                <attribute-name>ACCESS</attribute-name>
+                <attribute-value>both</attribute-value>
+            </attribute>
+            <attribute>
+                <attribute-name>SAVE_EVENT</attribute-name>
+                <attribute-value>onEdited</attribute-value>
+            </attribute>
+        </annotation>
+    </component>
+
+
+
+
+
+</language-addon>

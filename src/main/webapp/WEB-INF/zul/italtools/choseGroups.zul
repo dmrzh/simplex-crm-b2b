@@ -1,0 +1,24 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="chooseItGroupWin" title="Выбор групп" mode="modal" closable="true" sizable="true"
+            apply="org.zkoss.bind.BindComposer" width="30%"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.italtools.ChooseGroupsVM')"
+            onCancel="itManageGroupWin.detach()">
+
+
+        <listbox model="@bind(vm.groups)" selectedItems="@bind(vm.groupResultList)" rows="10" multiple="true"
+                 checkmark="true" vflex="min">
+            <listhead>
+                <listheader label="Группы"/>
+            </listhead>
+            <template name="model" var="group">
+                <listitem label="@load(group.name)"/>
+            </template>
+        </listbox>
+        <hbox>
+            <button image="img/cancel.png" onClick="@command('close')" label="Выбрать"/>
+        </hbox>
+    </window>
+</zk>

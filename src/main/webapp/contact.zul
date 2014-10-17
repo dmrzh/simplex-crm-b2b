@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="contactWin"  title="Добавить контакт" mode="modal" closable="true" sizable="true"
+            width="40%" position="center,center" apply="org.zkoss.bind.BindComposer"
+            onOK="@command('save') @global-command('refreshContacts')" onCancel="@command('cancel')"
+            viewModel="@id('cvm') @init('ru.dev_server.client.viewmodel.ContactViewModel')"
+            validationMessages="@id('vmsgs')">
+
+        <listbox>
+            <listitem>
+                <listcell>Тип контакта</listcell>
+                <listcell>
+                    <combobox model="@bind(cvm.contactTypes)" selectedItem="@bind(cvm.currentContact.contactType)">
+                        <template name="model" var="cType">
+                            <comboitem value="@load(cType)" label="@load(cType) @converter(cvm.typeConverter)"/>
+                        </template>
+                    </combobox>
+                </listcell>
+                <listcell><label value="@bind(cvm.currentContact.contactType.formatMsg)"/></listcell>
+            </listitem>
+            <listitem>
+                <listcell>Контакт</listcell>
+                <listcell>
+                    <textbox  id="contactValue"
+                                    value="@load(cvm.currentContact.value) @save(cvm.currentContact.value, before='save')"
+                                    placeholder="@load(cvm.currentContact.contactType.example)"/>
+                </listcell>
+                <listcell>
+                    <label style="color:red" value="@bind(vmsgs[contactValue])"/>
+                </listcell>
+            </listitem>
+            <listitem>
+                <listcell>Примечание</listcell>
+                <listcell><textbox value="@bind(cvm.currentContact.note)" constraint="/.{0,100}/:не больше 100 символов" /></listcell>
+            </listitem>
+        </listbox>
+        <hbox>
+            <button image="img/save16.png" onClick="@command('save') @global-command('refreshContacts')">Сохранить</button>
+            <button image="img/cancel16.png" onClick="@command('cancel')">Отмена</button>
+        </hbox>
+    </window>
+
+</zk>

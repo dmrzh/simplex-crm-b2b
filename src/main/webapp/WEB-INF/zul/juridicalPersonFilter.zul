@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul  http://www.zkoss.org/2005/zul/zul.xsd"
+        >
+    <window id="juridicalPersonFilterWin"
+            title="Фильтр: Поиск клиентов по условиям" border="normal" mode="modal" closable="true" sizable="true" maximizable="true"
+            position="center,center" width="50%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('ru.dev_server.client.viewmodel.JuridicalPersonFilterVM')"
+            onOk="@command('applyFilter')"
+            onCancel="juridicalPersonFilterWin.detach()">
+
+                <listbox>
+                    <listhead></listhead>
+                    <listitem>
+                        <listcell>Имя</listcell>
+                        <listcell>
+                            <textbox value="@bind(vm.filter.name)" />
+                        </listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Город</listcell>
+                        <listcell><textbox value="@bind(vm.filter.city)"/></listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Регион</listcell>
+                        <listcell><textbox value="@bind(vm.filter.region)"/></listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Адрес</listcell>
+                        <listcell><textbox value="@bind(vm.filter.address)"/></listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Контакт/ФИО/Телефон/email</listcell>
+                        <listcell><textbox value="@bind(vm.filter.contact)"/></listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Факс</listcell>
+                        <listcell><textbox value="@bind(vm.filter.fax)"/></listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Сайт</listcell>
+                        <listcell><textbox value="@bind(vm.filter.site)"/></listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Общие группы</listcell>
+                        <listcell>
+                            <vbox>
+                                <hbox>
+                                    <button label="Добавить" mold="trendy" onClick="@command('choosePublicGroups')"/>
+                                    <button label="Очистить" mold="trendy" onClick="@command('clearPublicGroups')"/>
+                                </hbox>
+                                <label value="@load(vm.publicGroupNames)"/>
+                            </vbox>
+                        </listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell>Личные группы</listcell>
+                        <listcell>
+                            <vbox>
+                                <hbox>
+                                    <button label="Добавить" mold="trendy" onClick="@command('choosePrivateGroups')"/>
+                                    <button label="Очистить" mold="trendy" onClick="@command('clearPrivteGroups')"/>
+                                </hbox>
+                                <label  value="@load(vm.privateGroupNames)"/>
+                            </vbox>
+                        </listcell>
+                    </listitem>
+                    <listitem>
+                        <listcell><button label="Применить фильтр"  onClick="@command('applyFilter')" image="img/search.jpg"> </button></listcell>
+                        <listcell><button label="Отмена" onClick="juridicalPersonFilterWin.detach()" image="img/cancel16.png"/></listcell>
+                    </listitem>
+
+                </listbox>
+
+    </window>
+</zk>
