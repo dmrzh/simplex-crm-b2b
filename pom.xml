@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>ru.dev_server.osteopath</groupId>
-    <artifactId>med</artifactId>
+    <groupId>ru.simplex-crm</groupId>
+    <artifactId>simplex-crm-b2b</artifactId>
     <packaging>war</packaging>
     <version>1.0</version>
-    <name>Simplex-CRM</name>
+    <name>Simplex-CRM-B2B</name>
     <url>http://www.Simplex-CRM.ru</url>
     <properties>
         <zk.ver>6.5.4</zk.ver>
