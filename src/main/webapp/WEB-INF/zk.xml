@@ -24,6 +24,12 @@
         <name>org.zkoss.bind.appConverters</name>
         <value>YesNo=ru.dev_server.client.TrueFalseConverter</value>
     </library-property>
+
+    <library-property>
+        <name>org.zkoss.bind.PhaseListener.class</name>
+        <value>ru.dev_server.client.utils.HibernateAttachPhaseListener</value>
+    </library-property>
+
     <language-config>
         <addon-uri>/WEB-INF/lang-addon.xml</addon-uri>
     </language-config>
