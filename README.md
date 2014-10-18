@@ -21,3 +21,6 @@ To make war distribution
 
 to run application in production mode deploy war in you application server (tested with jetty).
 
+
+
+[Screenshot](https://github.com/dmrzh/simplex-crm-b2b/wiki/Screehshot)
