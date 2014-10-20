@@ -7,6 +7,16 @@
     <version>1.0</version>
     <name>Simplex-CRM-B2B</name>
     <url>http://www.Simplex-CRM.ru</url>
+    <licenses>
+        <license>
+            <name>AGPL</name>
+            <url>http://www.gnu.org/licenses/agpl-3.0.html</url>
+        </license>
+    </licenses>
+    <organization>
+        <name>Simplex Software</name>
+        <url>http://www.simplex-software.ru</url>
+    </organization>
     <properties>
         <zk.ver>6.5.4</zk.ver>
         <hibernate.version>4.1.11.Final</hibernate.version>

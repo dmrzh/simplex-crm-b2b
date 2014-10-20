@@ -3,7 +3,7 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-    <display-name>Med Application</display-name>
+    <display-name>Simplex CRM B2B application</display-name>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -45,17 +45,6 @@
         <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
     </servlet>
 
-    <servlet>
-        <display-name>RobokassaSuccess</display-name>
-        <servlet-name>RobokassaSuccess</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
-
-    <servlet>
-        <display-name>RobokassaFail</display-name>
-        <servlet-name>RobokassaFail</servlet-name>
-        <servlet-class>org.springframework.web.context.support.HttpRequestHandlerServlet</servlet-class>
-    </servlet>
 
     <servlet>
         <servlet-name>ViewStatusMessages</servlet-name>
@@ -95,14 +84,6 @@
         <url-pattern>/activate/*</url-pattern>
     </servlet-mapping>
 
-    <servlet-mapping>
-        <servlet-name>RobokassaSuccess</servlet-name>
-        <url-pattern>/robokassa_success/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RobokassaFail</servlet-name>
-        <url-pattern>/robokassa_fail/*</url-pattern>
-    </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>zkLoader</servlet-name>
