@@ -26,7 +26,7 @@ copy context.xml to /etc/tomcat7/Catalina/localhost/mycontext.xml if needed.
         mvn -Dmaven.test.skip=true clean package -P prod     
 *.war file wil be created in target/ directory
 
-To run application in production mode deploy war in you application server (tested with tomcat).
+To run application in production mode deploy war to you application server (tested with tomcat).
 
 
 
