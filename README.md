@@ -19,13 +19,14 @@ CRM for B2B with web interface.
 1. Install java
 2. Install maven
 3. Instal postgresql database
-4. correct src/profiles/prod/META-INF/context.xml
+4. correct src/profiles/prod/META-INF/context.xml (for tomcat, for other container create DataSource in server), 
+copy context.xml to /etc/tomcat7/Catalina/localhost/mycontext.xml if needed. 
 5. build application:  
    
         mvn -Dmaven.test.skip=true clean package -P prod     
 *.war file wil be created in target/ directory
 
-To run application in production mode deploy war in you application server (tested with jetty).
+To run application in production mode deploy war in you application server (tested with tomcat).
 
 
 
