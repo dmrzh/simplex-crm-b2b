@@ -59,16 +59,10 @@
 
     <bean name="authService" class="ru.dev_server.client.AuthService"/>
 
-
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${datasource.driverClassName}"/>
-        <property name="jdbcUrl" value="${datasource.url}"/>
-        <property name="user" value="${datasource.username}"/>
-        <property name="password" value="${datasource.password}"/>
-        <property name="initialPoolSize" value="20" />
-        <property name="maxIdleTime" value="10000" />
-        <property name="maxPoolSize" value="40" />
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/simplexcrmb2bDb"/>
     </bean>
+
     <bean id="flyway" class="com.googlecode.flyway.core.Flyway" init-method="migrate">
         <property name="dataSource" ref="dataSource"/>
         <property name="locations" value="db/migration,db/it"/>

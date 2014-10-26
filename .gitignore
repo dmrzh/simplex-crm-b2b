@@ -1,6 +1,5 @@
 target/
 .idea/
-med.iml
-b2b.iml
+*.iml
 hs_err_pid*
 

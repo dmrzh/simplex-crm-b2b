@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource name="jdbc/simplexcrmb2bDb"
+              global="jdbc/simplexcrmb2bDb"
+              auth="Container"
+              type="javax.sql.DataSource"
+              driverClassName="org.postgresql.Driver"
+              url="jdbc:postgresql://localhost/clients"
+              username="simplexuser2"
+              password="xxx"
+              maxActive="100"
+              maxIdle="20"
+              minIdle="5"
+              maxWait="10000"/>
+</Context>

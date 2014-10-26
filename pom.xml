@@ -430,6 +430,22 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <containerConfigXML>src/profiles/${profile.selected}/META-INF/context.xml</containerConfigXML>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <contextFile>src/profiles/${profile.selected}/META-INF/context.xml</contextFile>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <repositories>
@@ -468,7 +484,7 @@
             <id>prod</id>
             <properties>
                 <profile.selected>prod</profile.selected>
-                <profile.finalName>demo</profile.finalName>
+                <profile.finalName>ROOT</profile.finalName>
             </properties>
         </profile>
         <profile>
