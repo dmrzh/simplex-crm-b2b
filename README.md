@@ -5,8 +5,8 @@ CRM for B2B with web interface.
 
 ##To run application in development mode
 
-1. Install java    
-2. Install maven
+1. Install java  [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+2. Install maven [http://www.apache-maven.ru/install.html](http://www.apache-maven.ru/install.html)
 3. Instal postgresql database
 4. correct src/profiles/dev/META-INF/context.xml
 5. start application:  
@@ -16,8 +16,8 @@ CRM for B2B with web interface.
 
 ##To make war distribution
 
-1. Install java
-2. Install maven
+1. Install java  [http://www.oracle.com/technetwork/java/javase/downloads/index.html](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+2. Install maven [http://www.apache-maven.ru/install.html](http://www.apache-maven.ru/install.html)
 3. Instal postgresql database
 4. correct src/profiles/prod/META-INF/context.xml (for tomcat, for other container create DataSource in server), 
 copy context.xml to /etc/tomcat7/Catalina/localhost/mycontext.xml if needed. 
